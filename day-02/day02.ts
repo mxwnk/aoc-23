@@ -3,40 +3,42 @@ import * as fs from "fs";
 type Color = "red" | "green" | "blue";
 const sum = (a: number, b: number): number => a + b;
 
-export function solveTask1(inputFilePath: string) {
-    const possibleGames: number[] = [];
+export function solveTask2(inputFilePath: string) {
+    const cubesMuliplied: number[] = [];
     const lines = fs.readFileSync(`./day-02/${inputFilePath}`, { encoding: "utf8" });
     const games = lines.split("\n");
     for (const game of games) {
-        const result = isGamePossible(game);
-        if (result.isPossible) {
-            possibleGames.push(result.id);
-        }
+        const result = getMinimumOfGame(game);
+        console.log(result);
+        cubesMuliplied.push(result.blue * result.green * result.red);
     }
-    console.log(possibleGames);
-    return possibleGames.reduce(sum);
+    return cubesMuliplied.reduce(sum);
 }
 
-function isGamePossible(game: string): { isPossible: boolean, id: number } {
+function getMinimumOfGame(game: string) {
     const parts = game.split(":");
     const gameIdPart = parts[0];
     const id = parseInt(gameIdPart.replace("Game ", ""));
 
     const sets = parts[1];
-    return isSetPossible(id, sets);
+    return minimumOfCubes(id, sets);
 }
 
-function isSetPossible(id, game: string) {
-    console.log(game);
-    
+function minimumOfCubes(id, game: string) {
+    const minimum = {
+        "blue": 0,
+        "green": 0,
+        "red": 0
+    };
     const sets = game.split(";");
     for (const set of sets) {
         const cubesPerSet = getCubesPerSet(set);
-        if (cubesPerSet.red > 12 || cubesPerSet.green > 13 || cubesPerSet.blue > 14) {
-            return { isPossible: false, id };
-        }
+        
+        minimum.blue = Math.max(minimum.blue, cubesPerSet.blue);
+        minimum.red = Math.max(minimum.red, cubesPerSet.red);
+        minimum.green = Math.max(minimum.green, cubesPerSet.green);
     }
-    return { isPossible: true, id };
+    return minimum;
 }
 
 function getCubesPerSet(set: string) {
@@ -49,11 +51,11 @@ function getCubesPerSet(set: string) {
 
     for (const reveal of reveals) {
         if (reveal.includes("blue")) {
-            result.blue += parseInt(reveal.replace(" blue", ""));
+            result.blue = parseInt(reveal.replace(" blue", ""));
         } else if (reveal.includes("green")) {
-            result.green += parseInt(reveal.replace(" green", ""));
+            result.green = parseInt(reveal.replace(" green", ""));
         } else if (reveal.includes("red")) {
-            result.red += parseInt(reveal.replace(" red", ""));
+            result.red = parseInt(reveal.replace(" red", ""));
         }
     }
     return result;
