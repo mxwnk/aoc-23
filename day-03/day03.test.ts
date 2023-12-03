@@ -8,7 +8,7 @@ describe("Day 3", () => {
 
     it("should solve task 1", () => {
         const result = solveTask1("input.txt");
-        console.log(result);
+        console.log(`Result: ${result}`);
     });
     
     it("should solve task 2 with example data", () => {
@@ -18,6 +18,6 @@ describe("Day 3", () => {
     
     it("should solve task 2 with real data", () => {
         const result = solveTask2("input.txt");
-        console.log(result);
+        console.log(`Result: ${result}`);
     });
 });

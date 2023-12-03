@@ -1,7 +1,5 @@
+import { sum } from "../utils";
 import * as fs from "fs";
-
-type Color = "red" | "green" | "blue";
-const sum = (a: number, b: number): number => a + b;
 
 export function solveTask2(inputFilePath: string) {
     const cubesMuliplied: number[] = [];
@@ -9,7 +7,6 @@ export function solveTask2(inputFilePath: string) {
     const games = lines.split("\n");
     for (const game of games) {
         const result = getMinimumOfGame(game);
-        console.log(result);
         cubesMuliplied.push(result.blue * result.green * result.red);
     }
     return cubesMuliplied.reduce(sum);

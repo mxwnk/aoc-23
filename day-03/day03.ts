@@ -1,7 +1,5 @@
 import * as fs from "fs";
-
-const sum = (a: number, b: number): number => a + b;
-const isDigit = (char: string) => !isNaN(parseInt(char));
+import { isDigit, sum } from "../utils";
 
 export function solveTask2(inputFilePath: string) {
     const engineSchematic = fs.readFileSync(`./day-03/${inputFilePath}`, { encoding: "utf8" });

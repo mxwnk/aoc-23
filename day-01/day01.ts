@@ -1,4 +1,5 @@
 import * as fs from "fs";
+import { isDigit, sum } from "../utils";
 
 const numberMapping: { [index: string]: string } = {
   "one": "o1ne",
@@ -13,8 +14,7 @@ const numberMapping: { [index: string]: string } = {
 };
 
 const numbers = Object.entries(numberMapping);
-const sum = (a: number, b: number): number => a + b;
-const filterNumbers = (line: string) => line.split("").filter(x => !isNaN(parseInt(x)));
+const filterNumbers = (line: string) => line.split("").filter(isDigit);
 const replaceNumbers = (line, [key, value]) => line.replaceAll(key, value)
 const combineDigits = (line: string): number => {
   const first = line[0];
