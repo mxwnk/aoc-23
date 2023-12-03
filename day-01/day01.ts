@@ -13,8 +13,8 @@ const numberMapping: { [index: string]: string } = {
 };
 
 const numbers = Object.entries(numberMapping);
-const sum = (a: number, b: number) => a + b;
-const filterNumbers = (line: string): string => line.split("").filter(x => !isNaN(parseInt(x)));
+const sum = (a: number, b: number): number => a + b;
+const filterNumbers = (line: string) => line.split("").filter(x => !isNaN(parseInt(x)));
 const replaceNumbers = (line, [key, value]) => line.replaceAll(key, value)
 const combineDigits = (line: string): number => {
   const first = line[0];
@@ -22,13 +22,14 @@ const combineDigits = (line: string): number => {
   return parseInt(first + last);
 }
 
-const input = fs.readFileSync("input.txt", { encoding: "utf8" });
-const lines = input.split("\n");
-const result = lines
-  .map(line => numbers.reduce(replaceNumbers, line))
-  .map(filterNumbers)
-  .map(combineDigits)
-  .reduce(sum);
-
-console.log(result);
-
+export function solveTask2(inputFilePath: string){
+  const input = fs.readFileSync("./day-01/" + inputFilePath, { encoding: "utf8" });
+  const lines = input.split("\n");
+  const result = lines
+    .map(line => numbers.reduce(replaceNumbers, line))
+    .map(filterNumbers)
+    //@ts-ignore
+    .map(combineDigits)
+    .reduce(sum);
+  return result;
+}
