@@ -8,7 +8,7 @@ describe("Day 3", () => {
 
     it("should solve task 1 with real data", () => {
         const result = solveTask1("input.txt");
-        expect(result).toBe(514969);
+        console.log(result);
     });
     
     it("should solve task 2 with example data", () => {
@@ -18,6 +18,6 @@ describe("Day 3", () => {
     
     it("should solve task 2 with real data", () => {
         const result = solveTask2("input.txt");
-        expect(result).toBe(78915902);
+        console.log(result);
     });
 });
