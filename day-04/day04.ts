@@ -1,16 +1,14 @@
 import * as fs from "fs";
 import { isDigit, sum } from "../utils";
 import { createRecord } from "../utils/createRecord";
+import { readFileLines } from "../utils/readFileLines";
 
 export function solveTask1(inputFilePath: string) {
-    const input = fs.readFileSync(`./day-04/${inputFilePath}`, { encoding: "utf8" });
-    const gameCards = input.split("\n");
-    return gameCards.map(calculateWinningPoints).reduce(sum);
+    return readFileLines(`./day-04/${inputFilePath}`).map(calculateWinningPoints).reduce(sum);
 }
 
 export function solveTask2(inputFilePath: string) {
-    const input = fs.readFileSync(`./day-04/${inputFilePath}`, { encoding: "utf8" });
-    const gameCards = input.split("\n");
+    const gameCards = readFileLines(`./day-04/${inputFilePath}`);
     const result: Record<number, number> = createRecord(gameCards.length, 1);
     
     for (let index = 0; index < gameCards.length - 1; index++) {
