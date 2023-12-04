@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "create": "ts-node main.ts",
     "test": "jest --watch"
   },
   "dependencies": {
