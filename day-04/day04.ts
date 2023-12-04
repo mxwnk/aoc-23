@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import { isDigit, sum } from "../utils";
+import { createRecord } from "../utils/createRecord";
 
 export function solveTask1(inputFilePath: string) {
     const input = fs.readFileSync(`./day-04/${inputFilePath}`, { encoding: "utf8" });
@@ -10,10 +11,8 @@ export function solveTask1(inputFilePath: string) {
 export function solveTask2(inputFilePath: string) {
     const input = fs.readFileSync(`./day-04/${inputFilePath}`, { encoding: "utf8" });
     const gameCards = input.split("\n");
-    const result: Record<number, number> = {};
-    for (let index = 0; index < gameCards.length; index++) {
-        result[index + 1] = 1;
-    }
+    const result: Record<number, number> = createRecord(gameCards.length, 1);
+    
     for (let index = 0; index < gameCards.length - 1; index++) {
         const gameCard = gameCards[index];
         const wins = calculateWins(gameCard);
