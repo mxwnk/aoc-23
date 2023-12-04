@@ -30,25 +30,17 @@ export function solveTask2(inputFilePath: string) {
 function calculateWins(gameCard: string) {
     const parts = gameCard.split(":");
     const gamePart = parts[1].split("|")
-    const winningNumbers = gamePart[0].split(" ").filter(isDigit);
+    const winningNumbers = new Set(gamePart[0].split(" ").filter(isDigit));
     const myNumbers = gamePart[1].split(" ").filter(isDigit);
-    const hits = myNumbers.filter(mn => winningNumbers.includes(mn)).length;
-    if (hits == 0) {
-        return 0;
-    }
-    return hits;
+    return myNumbers.filter(mn => winningNumbers.has(mn)).length;
 }
 
 function calculateWinningPoints(gameCard: string) {
-    const parts = gameCard.split(":");
-    const gamePart = parts[1].split("|")
-    const winningNumbers = gamePart[0].split(" ").filter(isDigit);
-    const myNumbers = gamePart[1].split(" ").filter(isDigit);
-    const hits = myNumbers.filter(mn => winningNumbers.includes(mn)).length;
-    if (hits === 0) {
+    const wins = calculateWins(gameCard);
+    if (wins === 0) {
         return 0;
     }
-    return doubleUp(hits);
+    return doubleUp(wins);
 }
 
 const doubleUp = (n: number) => Math.pow(2, n - 1);
