@@ -10,14 +10,14 @@ export function solveTask1(input: string) {
 
   for (const seed of seeds) {
     let source = seed;
-    for (const categorie of categories) {
-      const mappingMatch = categorie.filter((c) => c.from <= source && source <= (c.from + c.length));
+    for (const cateory of categories) {
+      const mappingMatch = cateory.filter((c) => c.source <= source && source <= (c.source + c.length));
       if (mappingMatch.length != 1) {
         continue;
       }
       const mapping = mappingMatch[0];
-      const index = source - mapping.from; 
-      const destination = mapping.to + index;
+      const index = source - mapping.source; 
+      const destination = mapping.destination + index;
       source = destination;
     }
     locationNumbers.push(source)
@@ -34,16 +34,16 @@ function convertCategories(mapping: string): Mapping[] {
   return lines.filter((l) => !l.includes("map")).map((l) => {
     const numbers = l.split(" ").filter(isDigit);
     return {
-      from: parseInt(numbers[1]),
-      to: parseInt(numbers[0]),
+      source: parseInt(numbers[1]),
+      destination: parseInt(numbers[0]),
       length: parseInt(numbers[2]),
     };
-  }).filter(f => !isNaN(f.from));
+  }).filter(f => !isNaN(f.source));
 }
 
 type Mapping = {
-  from: number;
-  to: number;
+  source: number;
+  destination: number;
   length: number;
 };
 
