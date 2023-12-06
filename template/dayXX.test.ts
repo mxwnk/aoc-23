@@ -2,7 +2,7 @@ import { solveTask1, solveTask2 } from "./dayXX";
 
 describe("Day XX", () => {
     it("should solve task 1 with example data", () => {
-        const result = solveTask1("example.data");
+        const result = solveTask1("example.txt");
         expect(result).toBe(0);
     });
     
