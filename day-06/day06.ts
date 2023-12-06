@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import { isDigit } from "../utils";
+import { createArray } from "../utils/createArray";
 
 export function solveTask1(input: string) {
   const lines = fs.readFileSync(`./day-06/${input}`, { encoding: "utf8" })
@@ -36,7 +37,7 @@ export function solveTask2(input: string) {
 type Race = { time: number; distance: number };
 
 function calculateSolutionsFor(race: Race) {
-  return [...Array(race.time).keys()]
+  return createArray(race.time)
     .map((t) => (race.time - t) * t)
     .filter((x) => x > race.distance)
     .length;
