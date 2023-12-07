@@ -1,9 +1,9 @@
-import { solveTask1, solveTask2 } from "./dayXX";
+import { solveTask1, solveTask2 } from "./day07";
 
-describe("Day XX", () => {
+describe("Day 07", () => {
   it("should solve task 1 with example data", () => {
     const result = solveTask1("example.txt");
-    expect(result).toBe(0);
+    expect(result).toBe(6440);
   });
 
   it("should solve task 1 with real data", () => {
