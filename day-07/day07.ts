@@ -6,27 +6,27 @@ export function solveTask2(input: string) {
 }
 
 export function solveTask1(input: string) {
-  const games = fs.readFileSync(`./day-07/${input}`, { encoding: "utf8" })
-    .split("\n").filter((x) => x !== "");
-  const cardCounts = games.map(mapToCardCount);
-  const sorted = cardCounts.sort((a, b) => {
-    if (a.rank > b.rank) {
-      return 1;
-    }
-    if (a.rank < b.rank) {
-      return -1;
-    }
-    return firstHigherCard(a.hand, b.hand);
-  });
-
-  const bidsMultipliedWithRank = sorted
-    .map((o, i) => {
-      return parseInt(o.amount) * (i + 1);
-    }).reduce(sum);
-  return bidsMultipliedWithRank;
+  const lines = fs.readFileSync(`./day-07/${input}`, { encoding: "utf8" }).split("\n").filter((x) => x !== "");
+  const games = lines.map(mapLineToGame).sort(sortGameByRank);
+  const totalWinnings = games.map((g, i) => multiplyGameBidWithRank(g, i + 1)).reduce(sum);
+  return totalWinnings;
 }
 
-function firstHigherCard(handA: string, handB: string) {
+function multiplyGameBidWithRank(game: Game, rankIndex: number) {
+  return game.bid * rankIndex;
+}
+
+function sortGameByRank(a: Game, b: Game) {
+  if (a.rank > b.rank) {
+    return 1;
+  }
+  if (a.rank < b.rank) {
+    return -1;
+  }
+  return sortByHigherCards(a.hand, b.hand);
+}
+
+function sortByHigherCards(handA: string, handB: string) {
   for (let i = 0; i < handA.split("").length; i++) {
     const higherCard = isCardHigher(handA[i], handB[i]);
     if (higherCard !== 0) {
@@ -62,32 +62,38 @@ const cardMapping = {
   "A": 14,
 };
 
-function mapToCardCount(game: string) {
-  const [hand, amount] = game.split(" ");
-  const set = { hand: hand, cardCount: {}, amount, rank: 1 };
+type Game = {
+  hand: string,
+  cardCount: {},
+  bid: number,
+  rank: number
+}
+
+function mapLineToGame(line: string): Game {
+  const [hand, bid] = line.split(" ");
+  const game: Game = { hand: hand, cardCount: {}, bid: parseInt(bid), rank: 1 };
   for (const card of hand.split("")) {
-    if (set.cardCount[card] === undefined) {
-      set.cardCount[card] = 1;
+    if (game.cardCount[card] === undefined) {
+      game.cardCount[card] = 1;
     } else {
-      set.cardCount[card]++;
+      game.cardCount[card]++;
     }
   }
-  const countPerCards = Object.keys(set.cardCount).map((k) =>
-    parseInt(set.cardCount[k])
+  const countPerCards = Object.keys(game.cardCount).map((k) => parseInt(game.cardCount[k])
   ).sort().reverse();
   if (countPerCards[0] == 5) {
-    set.rank = 7;
+    game.rank = 7;
   } else if (countPerCards[0] == 4) {
-    set.rank = 6;
+    game.rank = 6;
   } else if (countPerCards[0] == 3 && countPerCards[1] == 2) {
-    set.rank = 5;
+    game.rank = 5;
   } else if (countPerCards[0] == 3) {
-    set.rank = 4;
+    game.rank = 4;
   } else if (countPerCards[0] == 2 && countPerCards[1] == 2) {
-    set.rank = 3;
+    game.rank = 3;
   } else if (countPerCards[0] == 2) {
-    set.rank = 2;
+    game.rank = 2;
   }
-  return set;
+  return game;
 }
 
