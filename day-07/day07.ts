@@ -2,7 +2,10 @@ import * as fs from "fs";
 import { isDigit, sum } from "../utils";
 
 export function solveTask2(input: string) {
-  return 0;
+  const lines = fs.readFileSync(`./day-07/${input}`, { encoding: "utf8" }).split("\n").filter((x) => x !== "");
+  const games = lines.map(mapLineToGameV2).sort(sortGameByRank);
+  const totalWinnings = games.map((g, i) => multiplyGameBidWithRank(g, i + 1)).reduce(sum);
+  return totalWinnings;
 }
 
 export function solveTask1(input: string) {
@@ -54,6 +57,14 @@ function toCardRank(c: string): number {
   return cardMapping[c];
 }
 
+const cardMappingV2 = {
+  "T": 10,
+  "J": 1,
+  "Q": 12,
+  "K": 13,
+  "A": 14,
+};
+
 const cardMapping = {
   "T": 10,
   "J": 11,
@@ -67,6 +78,37 @@ type Game = {
   cardCount: {},
   bid: number,
   rank: number
+}
+
+function mapLineToGameV2(line: string): Game {
+  const [hand, bid] = line.split(" ");
+  const game: Game = { hand: hand, cardCount: {}, bid: parseInt(bid), rank: 1 };
+  for (const card of hand.split("")) {
+    if (game.cardCount[card] === undefined) {
+      game.cardCount[card] = 1;
+    } else {
+      game.cardCount[card]++;
+    }
+  }
+  const countPerCards = Object.keys(game.cardCount).filter(k => k !== "J").map((k) => parseInt(game.cardCount[k])
+  ).sort().reverse();
+  const jokers = game.cardCount["J"] ?? 0; 
+
+  if (jokers === 5 || countPerCards[0] + jokers == 5) {
+    game.rank = 7;
+  } else if (countPerCards[0] + jokers == 4) {
+    game.rank = 6;
+  } else if (countPerCards[0] + jokers == 3 && countPerCards[1] == 2) {
+    game.rank = 5;
+  } else if (countPerCards[0] + jokers == 3) {
+    game.rank = 4;
+  } else if (countPerCards[0] + jokers == 2 && countPerCards[1] == 2) {
+    game.rank = 3;
+  } else if (countPerCards[0] + jokers == 2) {
+    game.rank = 2;
+  } 
+  console.log(game, `Jokers: ${jokers}`);
+  return game;
 }
 
 function mapLineToGame(line: string): Game {
