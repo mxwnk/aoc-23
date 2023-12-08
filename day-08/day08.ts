@@ -12,7 +12,7 @@ export function solveTask1(input: string) {
     set[instruction.target] = instruction;
   }
   let stepper = { steps: 0, nextTarget: "AAA", index: 0 };
-  while (true) {
+  while (stepper.nextTarget !== "ZZZ") {
     const nextLR = lr[stepper.index];
     if (nextLR === "L") {
       stepper.nextTarget = set[stepper.nextTarget].left;
@@ -26,9 +26,6 @@ export function solveTask1(input: string) {
       stepper.index = 0;
     } else {
       stepper.index++;
-    }
-    if(stepper.nextTarget === "ZZZ"){
-      break;
     }
   }
 
