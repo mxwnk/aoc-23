@@ -16,7 +16,6 @@ export function solveTask1(input: string) {
             }
             depth++;
         }
-        console.log(iterations);
         for (let i = iterations.length - 1; 0 < i; i--) {
             const currentIteration = iterations[i];
             const nextIteration = iterations[i - 1];
