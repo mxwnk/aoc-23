@@ -5,17 +5,7 @@ export function solveTask1(input: string) {
     const histories = fs.readFileSync(`./day-09/${input}`, { encoding: "utf8" }).split("\n").map(l => l.split(" ").map(Number));
     const extrapolatians: number[] = [];
     for (const history of histories) {
-        const iterations = [history];
-        let depth = 1;
-        while (!allZero(iterations[depth - 1])) {
-            for (let i = 0; i < iterations[depth - 1].length - 1; i++) {
-                if (iterations[depth] === undefined) {
-                    iterations[depth] = [];
-                }
-                iterations[depth].push(iterations[depth - 1][i + 1] - iterations[depth - 1][i])
-            }
-            depth++;
-        }
+        const iterations = runIterations([history]);
         for (let i = iterations.length - 1; 0 < i; i--) {
             const currentIteration = iterations[i];
             const nextIteration = iterations[i - 1];
@@ -23,7 +13,6 @@ export function solveTask1(input: string) {
             const lastOfNextIteration = nextIteration[nextIteration.length - 1];
             nextIteration.push(lastOfNextIteration + lastOfCurrent)
         }
-
         const firstIteration = iterations[0];
         const extrapolatian = firstIteration[firstIteration.length - 1];
         extrapolatians.push(extrapolatian)
@@ -34,5 +23,34 @@ export function solveTask1(input: string) {
 const allZero = (array: number[]) => array.every(x => x === 0);
 
 export function solveTask2(input: string) {
-    return 0;
+    const histories = fs.readFileSync(`./day-09/${input}`, { encoding: "utf8" }).split("\n").map(l => l.split(" ").map(Number));
+    const extrapolatians: number[] = [];
+    for (const history of histories) {
+        const iterations = runIterations([history]);
+        for (let i = iterations.length - 1; 0 < i; i--) {
+            const currentIteration = iterations[i];
+            let nextIteration = iterations[i - 1];
+            const firstOfCurrent = currentIteration[0];
+            const firstOfNextIteration = nextIteration[0];
+            const next = firstOfNextIteration - firstOfCurrent;
+            iterations[i - 1] = [next, ...nextIteration];
+        }
+        const extrapolatian = iterations[0][0];
+        extrapolatians.push(extrapolatian)
+    }
+    return extrapolatians.reduce(sum);
+}
+
+const runIterations = (iterations: number[][]) => {
+    let depth = 1;
+    while (!allZero(iterations[depth - 1])) {
+        for (let i = 0; i < iterations[depth - 1].length - 1; i++) {
+            if (iterations[depth] === undefined) {
+                iterations[depth] = [];
+            }
+            iterations[depth].push(iterations[depth - 1][i + 1] - iterations[depth - 1][i])
+        }
+        depth++;
+    }
+    return iterations
 }
