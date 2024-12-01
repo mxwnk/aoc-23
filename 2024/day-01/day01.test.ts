@@ -1,12 +1,18 @@
-import { expect } from "jsr:@std/expect";
 import { solvePart1 , solvePart2 } from "./day01.ts";
+import { assertEquals } from "../utils/assert.ts";
 
-Deno.test("Day 01 - should solve part 1", () => {
-    const result = solvePart1(`${import.meta.dirname}/example.txt`);
-    expect(result).toBe(11);
-});
+export function part1Test(){
+    const exampleResult = solvePart1('example');
+    assertEquals(exampleResult, 11);
+    
+    const actualResult = solvePart1('input');
+    console.log(`Day 01 - part 1 result: '${actualResult}'`);
+}
 
-Deno.test("Day 01 - should solve part 2", () => {
-    const result = solvePart2(`${import.meta.dirname}/example.txt`);
-    expect(result).toBe(31);
-});
+export function part2Test(){
+    const exampleResult = solvePart2('example');
+    assertEquals(exampleResult, 31);
+
+    const actualResult = solvePart2('input');
+    console.log(`Day 01 - part 2 result: '${actualResult}'`);
+}
