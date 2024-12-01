@@ -3,7 +3,8 @@
     "dev": "deno run --watch -A --env-file main.ts"
   },
   "imports": {
-    "@std/assert": "jsr:@std/assert@1",
+    "@std/assert": "jsr:@std/assert@^1.0.8",
+    "@std/expect": "jsr:@std/expect@^1.0.8",
     "@std/fs": "jsr:@std/fs@^1.0.6",
     "@std/path": "jsr:@std/path@^1.0.8"
   }

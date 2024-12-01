@@ -17,7 +17,7 @@ async function main() {
   await copyTemplates("dayXX.test.ts", dayString);
 
   const puzzleInput = await fetchPuzzleInput(dayNumber);
-  await Deno.writeTextFileSync(`${newDirPath}/example.txt`, puzzleInput, {
+  await Deno.writeTextFileSync(`${newDirPath}/input.txt`, puzzleInput, {
     createNew: true,
   });
 }
