@@ -1,13 +1,13 @@
 import { sum } from "../utils/array.ts";
 
-export function solveTask1(input: string) {
+export function solvePart1(input: string) {
     const { left, right } = getLists(input);
     return left
         .map((value, index) => Math.abs(value - right[index]))
         .reduce(sum);
 }
 
-export function solveTask2(input: string) {
+export function solvePart2(input: string) {
     const { left, right } = getLists(input);
     const appereances = new Map<number, number>(
         left.concat(right).map((l) => [l, 0]),

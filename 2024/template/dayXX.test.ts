@@ -1,12 +1,12 @@
-import { assertEquals } from "@std/assert";
-import { solveTask1, solveTask2} from "./dayXX.ts";
+import { solvePart1, solvePart2 } from "./dayXX.ts";
+import { expect } from "@std/expect/expect";
 
-Deno.test('should solve task 1' , () => {
-    const result = solveTask1('example.txt');
-    assertEquals(result, 1);
+Deno.test("Day XX - should solve part 1", () => {
+    const result = solvePart1(`${import.meta.dirname}/example.txt`);
+    expect(result).toBe(0);
 });
 
-Deno.test('should solve task 2' , () => {
-    const result = solveTask2('example.txt');
-    assertEquals(result, 1);
+Deno.test("Day XX - should solve part 2", () => {
+    const result = solvePart2(`${import.meta.dirname}/example.txt`);
+    expect(result).toBe(0);
 });
