@@ -1,11 +1,24 @@
 {
   "tasks": {
-    "dev": "deno run --watch -A --env-file main.ts"
+    "dev": "deno run --watch -A --env-file main.ts",
+    "serve": "deno run -A --node-modules-dir npm:vite"
+  },
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "jsxImportSourceTypes": "@types/react",
+    "noImplicitAny": false
   },
   "imports": {
+    "@deno/vite-plugin": "npm:@deno/vite-plugin@^1.0.0",
     "@std/assert": "jsr:@std/assert@^1.0.8",
     "@std/expect": "jsr:@std/expect@^1.0.8",
     "@std/fs": "jsr:@std/fs@^1.0.6",
-    "@std/path": "jsr:@std/path@^1.0.8"
+    "@std/path": "jsr:@std/path@^1.0.8",
+    "@types/react": "npm:@types/react@^18.3.12",
+    "@types/react-dom": "npm:@types/react-dom@^18.3.1",
+    "react": "npm:react@^18.3.1",
+    "react-dom": "npm:react-dom@^18.3.1",
+    "vite": "npm:vite@^6.0.1"
   }
 }
