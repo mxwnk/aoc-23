@@ -13,8 +13,9 @@ export function part1Test(){
 
 export function part2Test(){
     const exampleResult = solvePart2('example');
-    assertEquals(exampleResult, 1);
+    assertEquals(exampleResult, 4);
+    log.s(`Day 02 - part 2 sample: ✅`);
 
     const actualResult = solvePart2('input');
-    console.log(`Day 02 - part 2 result: '${actualResult}'`);
+    log.s(`Day 02 - part 2 result: '${actualResult}'`);
 }
