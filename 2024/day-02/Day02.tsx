@@ -1,5 +1,5 @@
 import { convertToGrid } from "../utils/string.ts";
-import { isReportSaveWithTolerate } from "./day02.ts";
+import { isReportSafeWithTolerate } from "./day02.ts";
 
 export default Day02;
 
@@ -17,7 +17,7 @@ function Day02({ input }: { input: string }) {
 }
 
 function LevelRow({ level }: { level: number[] }) {
-    const report = isReportSaveWithTolerate(level);
+    const report = isReportSafeWithTolerate(level);
     return (
         <div style={{ color: report.isSafe ? 'green' : 'red', fontSize: '32' }}>
             {level.map((l, i) => {

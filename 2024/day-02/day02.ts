@@ -4,15 +4,15 @@ import { convertToGrid } from "../utils/string.ts";
 
 export function solvePart1(input: string) {
     const grid = convertToGrid(input);
-    return grid.map(isReportSave).reduce(sum);
+    return grid.map(isReportSafe).reduce(sum);
 }
 
 export function solvePart2(input: string) {
     const grid = convertToGrid(input);
-    return grid.map(isReportSaveWithTolerate).map((r) => r.isSafe).reduce(sum);
+    return grid.map(isReportSafeWithTolerate).map((r) => r.isSafe).reduce(sum);
 }
 
-export function isReportSave(level: number[]): number {
+export function isReportSafe(level: number[]): number {
     const initialDirection = checkSign(level[0] - level[1]);
     let i = 0;
     while (i < level.length - 1) {
@@ -26,15 +26,15 @@ export function isReportSave(level: number[]): number {
     return 1;
 }
 
-export function isReportSaveWithTolerate(
+export function isReportSafeWithTolerate(
     level: number[],
 ): { isSafe: number; removedIndex?: number } {
-    if (isReportSave(level)) {
+    if (isReportSafe(level)) {
         return { isSafe: 1 };
     }
     for (let i = 0; i < level.length; i++) {
         const withoutCurrentLevel = level.filter((_, j) => i !== j);
-        if (isReportSave(withoutCurrentLevel)) {
+        if (isReportSafe(withoutCurrentLevel)) {
             return { isSafe: 1, removedIndex: i };
         }
     }
