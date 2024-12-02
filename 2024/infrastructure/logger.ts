@@ -1,13 +1,13 @@
 // deno-lint-ignore-file no-explicit-any
 
 export const log = {
-    s: (msg: any) => print(msg, "success"),
+    s: (msg: any) => print(msg, "done"),
     i: (msg: any) => print(msg, "info"),
-    w: (msg: any) => print(msg, "warning"),
-    e: (msg: any | any[]) => print(msg, "error"),
+    w: (msg: any) => print(msg, "warn"),
+    e: (msg: any | any[]) => print(msg, "err"),
 }
 
-const print = (msg: any, logLevel: "success"| "info" | "warning" | "error") => {
+const print = (msg: any, logLevel: "done"| "info" | "warn" | "err") => {
     const time = new Date().toLocaleTimeString();
     const color = logLevelToColor[logLevel];
     const log = `[${colored(logLevel.toUpperCase(), color)}] ${colored(time, "black")} ${msg}`;
@@ -31,7 +31,7 @@ const colors: {[key in Color]: string} = {
 
 const logLevelToColor = {
     "info": "blue",
-    "warning": "yellow",
-    "error": "red",
-    "success": "green"
+    "warn": "yellow",
+    "err": "red",
+    "done": "green"
 } as const;

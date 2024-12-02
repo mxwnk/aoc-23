@@ -1,4 +1,5 @@
 import { fetchPuzzleInput } from "./api.ts";
+import { log } from "./infrastructure/logger.ts";
 import { Day } from "./utils/day.ts";
 import { dirExists } from "./utils/dir.ts";
 import { copyTemplates } from "./utils/template.ts";
@@ -33,4 +34,4 @@ async function ensureTemplatesExist(day: Day) {
   });
 }
 
-main().then(() => console.log("Happy coding 👨‍💻\n"));
+main().then(() => log.i("🎄Let's save Christmas 🎅\n"));
